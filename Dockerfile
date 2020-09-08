@@ -13,6 +13,8 @@ RUN ln -s public html
 RUN usermod -u 1000 www-data
 USER www-data
 
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
 EXPOSE 9000
 
-ENTRYPOINT ["php-fpm", "php artisan migrate"]
+ENTRYPOINT ["php-fpm", "php artisan key:generate", "php artisan migrate"]
